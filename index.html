@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Nitro Generator & Checker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Nitro Gen & Checker</h1>
+      <p class="subtitle">Discord Nitro Code Generator</p>
+    </header>
+
+    <section class="card" id="settings-card">
+      <h2>設定</h2>
+
+      <div class="field">
+        <label for="count">生成するコード数</label>
+        <input type="number" id="count" min="1" max="10000" value="100" placeholder="例: 100" />
+      </div>
+
+      <div class="field">
+        <label for="webhook">Discord Webhook URL（任意）</label>
+        <input type="url" id="webhook" placeholder="https://discord.com/api/webhooks/..." />
+      </div>
+
+      <div class="field">
+        <label for="delay">チェック間隔（ms）</label>
+        <input type="number" id="delay" min="100" max="5000" value="500" />
+        <span class="hint">レートリミット対策に 500ms 以上推奨</span>
+      </div>
+
+      <div class="buttons">
+        <button id="start-btn" class="btn btn-primary" onclick="startGen()">開始</button>
+        <button id="stop-btn" class="btn btn-danger" onclick="stopGen()" disabled>停止</button>
+      </div>
+    </section>
+
+    <section class="card" id="status-card">
+      <h2>ステータス</h2>
+      <div class="stats">
+        <div class="stat valid">
+          <span class="stat-num" id="valid-count">0</span>
+          <span class="stat-label">有効</span>
+        </div>
+        <div class="stat invalid">
+          <span class="stat-num" id="invalid-count">0</span>
+          <span class="stat-label">無効</span>
+        </div>
+        <div class="stat total">
+          <span class="stat-num" id="total-count">0</span>
+          <span class="stat-label">チェック済み</span>
+        </div>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <p class="progress-text" id="progress-text">待機中</p>
+    </section>
+
+    <section class="card" id="log-card">
+      <div class="card-header">
+        <h2>ログ</h2>
+        <button class="btn btn-small" onclick="clearLog()">クリア</button>
+      </div>
+      <div id="log"></div>
+    </section>
+
+    <section class="card" id="valid-card" style="display:none;">
+      <div class="card-header">
+        <h2>有効コード</h2>
+        <button class="btn btn-small" onclick="copyValid()">コピー</button>
+      </div>
+      <div id="valid-list"></div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
